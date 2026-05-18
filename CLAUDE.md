@@ -5,19 +5,38 @@ Self-contained HTML/CSS/JS workout artifacts for a lean hypertrophy program.
 Goal: 134 lb → 150+ lb in 6 months, building visible muscle mass and size.
 No backend, no build step, no framework. Open any HTML file in a browser.
 
+## Schedule
+- **Monday–Friday** workouts only (45 min, 9:30–10:15 am)
+- **Weekends** = full rest
+- 5-day split: Push / Pull / Legs / Upper / Lower
+
 ## User Profile
-- Weight: 134 lb → target 150+ lb | Experience: Intermediate | Equipment: Full commercial gym
-- Session: 45-60 min | Goal: Hypertrophy (look big and muscular), lean bulk nutrition
+- Weight: 134 lb → 150+ lb | Experience: Intermediate | Equipment: Full commercial gym
+- Goal: Hypertrophy — look big and muscular (aesthetic muscle gain, not just strength)
 
-## File Conventions
+## File Map
+```
+workouts/
+  index.html          weekly schedule
+  day1-push.html      Mon — Chest, Shoulders, Triceps
+  day2-pull.html      Tue — Back, Biceps, Forearms
+  day3-legs.html      Wed — Quads, Hamstrings, Calves
+  day4-upper.html     Thu — Shoulders, Arms (2nd hit)
+  day5-lower.html     Fri — Deadlift, Glutes, Calves, Core
+nutrition/
+  calorie-targets.html  TDEE math, source of truth
+  meal-templates.html   meal plan templates
+assets/
+  style.css  tracker.js  *.svg
+```
 
-### HTML
-- `<!DOCTYPE html>` + semantic HTML5 (`<article>`, `<section>`, `<figure>`, `<details>`)
-- 2-space indentation, no inline styles
+## HTML Conventions
+- `<!DOCTYPE html>` + semantic HTML5 (article, section, figure, details)
+- 2-space indent, no inline styles
 - Stylesheet: `<link rel="stylesheet" href="../assets/style.css">`
-- Tracker: `<script src="../assets/tracker.js"></script>` at end of `<body>`
+- Tracker: `<script src="../assets/tracker.js"></script>` at end of body
 
-### Exercise Card Pattern
+## Exercise Card Pattern
 ```html
 <article class="exercise-card" data-day="1" data-exercise="bench-press" data-sets="4" data-reps="6-8">
   <div class="exercise-header">
@@ -29,55 +48,58 @@ No backend, no build step, no framework. Open any HTML file in a browser.
       <img src="../assets/exercise-placeholder.svg"
            alt="Barbell Bench Press — lower to mid-chest in 3s, press explosively"
            loading="lazy">
-      <figcaption><a href="https://exrx.net/WeightExercises/PectoralMajor/BBBenchPress" target="_blank" rel="noopener">View demo on ExRx ↗</a></figcaption>
+      <figcaption><a href="https://exrx.net/WeightExercises/PectoralMajor/BBBenchPress" target="_blank" rel="noopener">Watch demo on ExRx ↗</a></figcaption>
     </figure>
     <div class="exercise-info">
-      <p class="muscles"><strong>Primary:</strong> Chest &nbsp;|&nbsp; <strong>Secondary:</strong> Anterior Delt, Tricep</p>
-      <p class="cue">Drive shoulder blades into the bench. 3-second eccentric; press explosively. Squeeze chest at the top.</p>
+      <div class="muscles-line"><span class="label">Muscles</span>🟢 Chest · 🔵 Anterior Delt · 🔵 Tricep</div>
+      <p class="cue">3-second eccentric. Squeeze chest at the top.</p>
     </div>
   </div>
+  <details class="substitutes">
+    <summary>Equipment not available? See alternatives</summary>
+    <div class="substitutes-body">
+      <div class="sub-item"><strong>Dumbbell Bench Press</strong><span>Same movement, greater ROM. Same sets/reps.</span></div>
+    </div>
+  </details>
   <div class="set-log" data-day="1" data-exercise="bench-press" data-sets="4" data-reps="6-8"></div>
 </article>
 ```
 
-### localStorage Key Spec
+## localStorage Key Spec
 ```
-getfit_start_date                            → ISO date string (e.g. "2026-05-18")
-getfit_skips                                 → JSON array of ISO date strings
+getfit_start_date                            → ISO date ("2026-05-18")
+getfit_skips                                 → JSON array of ISO dates
 getfit_day{N}_{exercise-slug}_set{M}_weight  → number string (lbs)
-getfit_day{N}_{exercise-slug}_set{M}_checked → "true" | "false"
+getfit_day{N}_{exercise-slug}_set{M}_checked → "true"|"false"
 ```
-Example: `getfit_day1_bench-press_set2_weight = "155"`
 
-### GIF / Demo Rules
-- Use `../assets/exercise-placeholder.svg` as `src` — always loads, looks clean
-- Always add `<a href="https://exrx.net/..." target="_blank">View demo on ExRx ↗</a>` below the image
-- Never use Giphy, YouTube embeds, or third-party CDN images
+## GIF / Demo Rules
+- Image src: always `../assets/exercise-placeholder.svg` (reliable fallback)
+- Always add ExRx link below image for the actual demo video
+- Never use Giphy, YouTube embeds, or third-party CDNs
 
-### Nutrition Source of Truth
-Macros are defined in `nutrition/calorie-targets.html`. Never hardcode duplicates.
-- Workout days (1-6): **2,986 kcal** | Protein 154g | Carbs 326g | Fat 119g
-- Rest/recovery (day 7): **2,786 kcal** | Protein 154g | Carbs 271g | Fat 121g
+## Equipment Substitution
+Every exercise card includes a `<details class="substitutes">` with 2-3 alternatives.
+When user reports unavailable equipment in chat, Claude references this section and
+provides a personalized substitute based on what IS available.
+
+## Nutrition Source of Truth
+Macros defined in `nutrition/calorie-targets.html` — never duplicate hardcoded values.
+- Workout days (Mon–Fri): **2,986 kcal** | 154g P / 326g C / 119g F
+- Rest days (Sat–Sun): **2,786 kcal** | 154g P / 271g C / 121g F
 
 ## Color Theme
 ```
 --bg: #0f0f0f    --surface: #1a1a1a    --border: #2d2d2d
 --text: #e5e5e5  --muted: #9ca3af
---accent: #22c55e (green) --accent2: #3b82f6 (blue) --danger: #ef4444 (red)
+--accent: #22c55e (green)  --accent2: #3b82f6 (blue)  --danger: #ef4444
 ```
 
-## Hypertrophy Training Philosophy
-This plan targets AESTHETIC muscle gain — the goal is to look big and muscular.
-- Rep ranges: 6-12 for compounds, 12-20 for isolation/pump finishers
-- Always include 3-second eccentric cue (slow lowering phase = more time under tension)
+## Hypertrophy Philosophy
+- 6-12 reps for compounds, 12-20 for isolation/pump finishers
+- 3-second eccentric on every lift (time under tension builds mass)
 - Mind-muscle connection cues in every exercise card
-- Pump finisher at end of each session (cable or machine, 15-20 reps)
-- Progressive overload: add 5 lb when you hit top of rep range for all sets
-
-## Accessibility
-- All `<img>` elements need descriptive `alt` text with a biomechanical cue
-- All interactive elements need `aria-label`
-- Color is never the sole state indicator (checkboxes also show text)
+- Progressive overload: +5 lb when you hit top of rep range for all sets
 
 ## Commands
 - `/workout` — generate or update a workout day HTML artifact

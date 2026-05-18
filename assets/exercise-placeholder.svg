@@ -1,0 +1,10 @@
+<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Exercise demonstration placeholder — click the ExRx link to watch the demo">
+  <rect width="300" height="200" fill="#1a1a1a" rx="8"/>
+  <g transform="translate(150,88)">
+    <rect x="-46" y="-6" width="92" height="12" rx="6" fill="#374151"/>
+    <rect x="-64" y="-22" width="22" height="44" rx="7" fill="#2d3748"/>
+    <rect x="42"  y="-22" width="22" height="44" rx="7" fill="#2d3748"/>
+  </g>
+  <text x="150" y="138" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#6b7280">Exercise demo</text>
+  <text x="150" y="158" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#4b5563">Click the ExRx link below to watch</text>
+</svg>

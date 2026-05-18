@@ -1,0 +1,31 @@
+<svg viewBox="0 0 160 310" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Posterior muscle diagram template — back of body">
+  <style>
+    .m        { fill:#2a3441; stroke:#3d4f61; stroke-width:1.2; }
+    .m-head   { fill:#1e2d3d; stroke:#2d4056; stroke-width:1; }
+    .m-active { fill:#14532d; stroke:#22c55e; stroke-width:1.5; }
+    .m-sec    { fill:#1e3a5f; stroke:#3b82f6; stroke-width:1.5; }
+  </style>
+  <ellipse cx="80" cy="22" rx="18" ry="20" class="m-head"/>
+  <rect x="74" y="40" width="12" height="12" rx="3" class="m-head"/>
+  <!-- trap -->
+  <path d="M68,50 Q80,46 92,50 L100,74 Q80,82 60,74 Z" class="m trap"/>
+  <!-- rear delt -->
+  <ellipse cx="52" cy="74" rx="16" ry="12" class="m rear-delt"/>
+  <ellipse cx="108" cy="74" rx="16" ry="12" class="m rear-delt"/>
+  <!-- back (lats + mid) -->
+  <path d="M62,80 L66,152 L94,152 L98,80 Q80,98 62,80 Z" class="m back"/>
+  <!-- tricep -->
+  <ellipse cx="44" cy="116" rx="10" ry="22" class="m tricep"/>
+  <ellipse cx="116" cy="116" rx="10" ry="22" class="m tricep"/>
+  <!-- forearm -->
+  <ellipse cx="39" cy="158" rx="8" ry="20" class="m forearm"/>
+  <ellipse cx="121" cy="158" rx="8" ry="20" class="m forearm"/>
+  <!-- glutes -->
+  <ellipse cx="80" cy="170" rx="24" ry="16" class="m glute"/>
+  <!-- hamstring -->
+  <ellipse cx="73" cy="216" rx="14" ry="34" class="m hamstring"/>
+  <ellipse cx="87" cy="216" rx="14" ry="34" class="m hamstring"/>
+  <!-- calf -->
+  <ellipse cx="73" cy="275" rx="10" ry="22" class="m calf"/>
+  <ellipse cx="87" cy="275" rx="10" ry="22" class="m calf"/>
+</svg>

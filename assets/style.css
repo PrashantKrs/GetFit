@@ -1,0 +1,163 @@
+/* GetFit — Dark Theme */
+:root {
+  --bg: #0f0f0f; --surface: #1a1a1a; --surface2: #242424;
+  --border: #2d2d2d; --text: #e5e5e5; --muted: #9ca3af;
+  --accent: #22c55e; --accent2: #3b82f6; --danger: #ef4444;
+  --warning: #f59e0b; --radius: 12px;
+  --font: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--text); font-family: var(--font); line-height: 1.6; min-height: 100vh; }
+img { max-width: 100%; display: block; }
+a { color: var(--accent2); }
+button { cursor: pointer; font-family: inherit; border: none; }
+
+/* Nav */
+.site-nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(26,26,26,0.96);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 20px; backdrop-filter: blur(8px);
+}
+.site-nav a { color: var(--text); text-decoration: none; font-size: 0.875rem; padding: 6px 12px; border-radius: 6px; transition: background 0.15s; }
+.site-nav a:hover { background: var(--surface2); }
+.site-nav .nav-home { color: var(--accent); font-weight: 700; }
+.site-nav .nav-prev, .site-nav .nav-next { color: var(--muted); }
+
+/* Layout */
+.page { max-width: 920px; margin: 0 auto; padding: 28px 16px 80px; }
+
+/* Day Header */
+.day-header { margin-bottom: 28px; }
+.day-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--surface); border: 1px solid var(--border); border-radius: 999px; padding: 4px 14px; font-size: 0.75rem; color: var(--muted); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.06em; }
+.day-header h1 { font-size: clamp(1.5rem, 4vw, 2rem); font-weight: 800; line-height: 1.1; }
+.day-header h1 em { color: var(--accent); font-style: normal; }
+.day-stats { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+.stat-chip { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 9px 14px; font-size: 0.82rem; }
+.stat-chip strong { display: block; font-size: 1.1rem; color: var(--accent); font-weight: 800; }
+
+/* Muscle Map */
+.muscle-map { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; margin-bottom: 28px; }
+.muscle-map-title { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 14px; }
+.muscle-figures { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; align-items: flex-start; }
+.muscle-figure { text-align: center; }
+.muscle-figure figcaption { font-size: 0.68rem; color: var(--muted); margin-top: 6px; text-transform: uppercase; letter-spacing: 0.08em; }
+.muscle-figures svg { width: 120px; height: auto; }
+.muscle-legend { display: flex; gap: 18px; justify-content: center; margin-top: 12px; font-size: 0.75rem; color: var(--muted); }
+.ldot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; margin-right: 4px; vertical-align: middle; }
+
+/* Section Header */
+.section-hd { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+
+/* Exercise Card */
+.exercise-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; margin-bottom: 14px; transition: border-color 0.2s; }
+.exercise-card.completed { border-color: var(--accent); background: #0d1f10; }
+.exercise-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 14px; }
+.exercise-header h3 { font-size: 1rem; font-weight: 700; }
+.exercise-meta { background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; padding: 4px 10px; font-size: 0.72rem; color: var(--muted); white-space: nowrap; flex-shrink: 0; line-height: 1.5; }
+.exercise-body { display: grid; grid-template-columns: 220px 1fr; gap: 16px; }
+@media (max-width: 600px) { .exercise-body { grid-template-columns: 1fr; } }
+.exercise-demo { border-radius: 8px; overflow: hidden; background: var(--surface2); border: 1px solid var(--border); display: flex; flex-direction: column; }
+.exercise-demo img { width: 100%; height: 160px; object-fit: cover; }
+.exercise-demo figcaption { padding: 7px 10px; font-size: 0.72rem; border-top: 1px solid var(--border); }
+.exercise-info { display: flex; flex-direction: column; gap: 10px; }
+.muscles-line { font-size: 0.82rem; line-height: 1.6; }
+.muscles-line .label { color: var(--muted); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.06em; display: block; margin-bottom: 2px; }
+.cue { font-size: 0.875rem; line-height: 1.65; background: var(--surface2); border-left: 3px solid var(--accent); padding: 10px 12px; border-radius: 0 6px 6px 0; flex: 1; }
+
+/* Substitutes */
+.substitutes { margin-top: 12px; border-top: 1px solid var(--border); padding-top: 10px; }
+.substitutes summary { cursor: pointer; font-size: 0.75rem; color: var(--accent2); list-style: none; user-select: none; }
+.substitutes summary::-webkit-details-marker { display: none; }
+.substitutes-body { margin-top: 10px; display: flex; flex-direction: column; gap: 7px; }
+.sub-item { background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; padding: 9px 12px; font-size: 0.8rem; }
+.sub-item strong { color: var(--accent2); display: block; margin-bottom: 2px; }
+.sub-item span { color: var(--muted); }
+
+/* Set Log */
+.set-log { margin-top: 14px; }
+.set-log-title { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 7px; }
+.set-rows { display: flex; flex-direction: column; gap: 5px; }
+.set-row { display: flex; align-items: center; gap: 10px; background: var(--surface2); border: 1px solid var(--border); border-radius: 7px; padding: 9px 12px; transition: all 0.15s; }
+.set-row.done { border-color: var(--accent); background: #0d1f10; }
+.set-row input[type="checkbox"] { width: 17px; height: 17px; accent-color: var(--accent); cursor: pointer; flex-shrink: 0; }
+.set-num { font-size: 0.8rem; font-weight: 700; min-width: 42px; color: var(--muted); }
+.set-reps-lbl { font-size: 0.8rem; color: var(--text); flex: 1; }
+.weight-wrap { display: flex; align-items: center; gap: 5px; margin-left: auto; }
+.weight-wrap input[type="number"] { width: 64px; background: var(--surface); border: 1px solid var(--border); color: var(--text); border-radius: 6px; padding: 4px 7px; text-align: right; font-size: 0.875rem; font-family: inherit; }
+.weight-wrap input[type="number"]:focus { outline: none; border-color: var(--accent); }
+.weight-wrap .unit { font-size: 0.72rem; color: var(--muted); }
+
+/* Nutrition */
+.nutrition-details { margin-top: 36px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); }
+.nutrition-details summary { cursor: pointer; list-style: none; display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; font-weight: 600; font-size: 0.92rem; user-select: none; }
+.nutrition-details summary::-webkit-details-marker { display: none; }
+.nutrition-details summary::after { content: '▼'; font-size: 0.68rem; color: var(--muted); transition: transform 0.2s; }
+.nutrition-details[open] summary::after { transform: rotate(180deg); }
+.nutrition-details[open] summary { border-bottom: 1px solid var(--border); }
+.nutrition-body { padding: 18px; }
+.macro-row { display: flex; gap: 9px; flex-wrap: wrap; margin-bottom: 20px; }
+.macro-chip { flex: 1; min-width: 80px; text-align: center; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 11px; }
+.macro-chip .mv { font-size: 1.4rem; font-weight: 800; color: var(--accent); display: block; line-height: 1; }
+.macro-chip .ml { font-size: 0.68rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; display: block; margin-top: 3px; }
+.meal-table { display: flex; flex-direction: column; }
+.meal-row { display: grid; grid-template-columns: 110px 1fr 90px; gap: 10px; align-items: start; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.83rem; }
+.meal-row:last-child { border-bottom: none; }
+.meal-time { color: var(--accent2); font-weight: 600; font-size: 0.76rem; }
+.meal-kcal { text-align: right; color: var(--muted); font-size: 0.74rem; }
+.nutrition-note { font-size: 0.8rem; color: var(--muted); margin-top: 14px; line-height: 1.5; }
+
+/* Action Bar */
+.action-bar { display: flex; gap: 9px; flex-wrap: wrap; margin-top: 36px; }
+.btn { display: inline-flex; align-items: center; gap: 7px; padding: 9px 18px; border-radius: 8px; font-weight: 600; font-size: 0.875rem; border: 1px solid transparent; transition: all 0.15s; cursor: pointer; font-family: inherit; }
+.btn-danger { background: #7f1d1d; color: #fca5a5; border-color: #991b1b; }
+.btn-danger:hover { background: #991b1b; }
+.btn-ghost { background: transparent; color: var(--muted); border-color: var(--border); text-decoration: none; }
+.btn-ghost:hover { background: var(--surface2); color: var(--text); }
+.skip-notice { background: #1c1007; border: 1px solid var(--warning); border-radius: 8px; padding: 11px 16px; margin-top: 10px; color: var(--warning); font-size: 0.83rem; display: none; }
+.skip-notice.show { display: block; }
+
+/* Index */
+.index-hero { text-align: center; padding: 36px 16px 24px; }
+.index-hero h1 { font-size: clamp(1.8rem, 5vw, 2.6rem); font-weight: 900; }
+.index-hero h1 em { color: var(--accent); font-style: normal; }
+.index-hero p { color: var(--muted); margin-top: 8px; }
+.progress-card { max-width: 480px; margin: 20px auto 36px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 20px; }
+.progress-labels { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--muted); margin-bottom: 7px; }
+.progress-bg { background: var(--surface2); border-radius: 999px; height: 7px; overflow: hidden; }
+.progress-fill { height: 100%; background: var(--accent); border-radius: 999px; transition: width 0.5s; }
+.reset-link { font-size: 0.75rem; color: var(--muted); cursor: pointer; margin-top: 8px; display: inline-block; }
+.reset-link:hover { color: var(--text); }
+.week-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+.day-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; text-decoration: none; color: var(--text); display: block; transition: border-color 0.2s, transform 0.1s; }
+.day-card:hover { border-color: #4b5563; transform: translateY(-1px); }
+.day-card.today { border-color: var(--accent); background: #0d1f10; }
+.day-card.rest { opacity: 0.5; cursor: default; pointer-events: none; }
+.card-weekday { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 5px; }
+.card-title { font-size: 0.98rem; font-weight: 700; margin-bottom: 3px; }
+.card-focus { font-size: 0.8rem; color: var(--muted); margin-bottom: 10px; }
+.muscle-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+.tag { background: var(--surface2); border: 1px solid var(--border); border-radius: 999px; padding: 2px 9px; font-size: 0.68rem; color: var(--muted); }
+.tag.p { background: #0f2a18; border-color: #22c55e55; color: #86efac; }
+.today-lbl { font-size: 0.68rem; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 7px; display: block; }
+
+/* Nutrition Pages */
+.card-block { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; margin-bottom: 18px; }
+.card-block h2 { font-size: 0.98rem; font-weight: 700; margin-bottom: 14px; }
+.info-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+.info-table th, .info-table td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); }
+.info-table th { color: var(--muted); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; }
+.info-table tr:last-child td { border-bottom: none; }
+.hl td { color: var(--accent); font-weight: 700; }
+
+/* Rest/Recovery */
+.rest-banner { background: linear-gradient(135deg,#0a1220,#0a1f12); border: 1px solid var(--accent2); border-radius: var(--radius); padding: 36px; text-align: center; margin-bottom: 28px; }
+.rest-banner h1 { font-size: 1.8rem; font-weight: 800; margin-bottom: 8px; }
+.rest-banner p { color: var(--muted); }
+
+/* Utility */
+.mt-4 { margin-top: 16px; } .mb-4 { margin-bottom: 16px; }
+.text-muted { color: var(--muted); } .text-accent { color: var(--accent); }
+.text-sm { font-size: 0.83rem; }

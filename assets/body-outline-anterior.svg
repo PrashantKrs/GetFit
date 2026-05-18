@@ -1,0 +1,30 @@
+<svg viewBox="0 0 160 310" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Anterior muscle diagram template — front of body">
+  <!-- Default class .m = inactive gray. Change to active or secondary per day. -->
+  <style>
+    .m        { fill:#2a3441; stroke:#3d4f61; stroke-width:1.2; }
+    .m-head   { fill:#1e2d3d; stroke:#2d4056; stroke-width:1; }
+    .m-active { fill:#14532d; stroke:#22c55e; stroke-width:1.5; }
+    .m-sec    { fill:#1e3a5f; stroke:#3b82f6; stroke-width:1.5; }
+  </style>
+  <ellipse cx="80" cy="22" rx="18" ry="20" class="m-head"/>
+  <rect x="74" y="40" width="12" height="12" rx="3" class="m-head"/>
+  <!-- shoulders -->
+  <ellipse cx="52" cy="74" rx="16" ry="12" class="m shoulder"/>
+  <ellipse cx="108" cy="74" rx="16" ry="12" class="m shoulder"/>
+  <!-- chest -->
+  <path d="M62,58 Q80,96 98,58 L104,84 Q80,108 56,84 Z" class="m chest"/>
+  <!-- bicep -->
+  <ellipse cx="44" cy="116" rx="10" ry="22" class="m bicep"/>
+  <ellipse cx="116" cy="116" rx="10" ry="22" class="m bicep"/>
+  <!-- forearm -->
+  <ellipse cx="39" cy="158" rx="8" ry="20" class="m forearm"/>
+  <ellipse cx="121" cy="158" rx="8" ry="20" class="m forearm"/>
+  <!-- abs -->
+  <rect x="70" y="98" width="20" height="46" rx="5" class="m abs"/>
+  <!-- quad -->
+  <ellipse cx="73" cy="210" rx="15" ry="36" class="m quad"/>
+  <ellipse cx="87" cy="210" rx="15" ry="36" class="m quad"/>
+  <!-- calf -->
+  <ellipse cx="73" cy="276" rx="10" ry="22" class="m calf"/>
+  <ellipse cx="87" cy="276" rx="10" ry="22" class="m calf"/>
+</svg>
