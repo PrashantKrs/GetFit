@@ -1,0 +1,31 @@
+name: Daily refresh
+
+on:
+  schedule:
+    # 6 AM ET (UTC-5) on weekdays — fires before your 9:30 AM workout
+    - cron: '0 11 * * 1-5'
+  workflow_dispatch: # allow manual trigger from GitHub Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Write today.json
+        run: |
+          DOW=$(date -u +%u)   # 1=Mon … 5=Fri
+          DATE=$(date -u +%Y-%m-%d)
+          TIME=$(date -u +%H:%M)
+          echo "{\"date\":\"$DATE\",\"dow\":$DOW,\"updated\":\"$TIME UTC\"}" > assets/today.json
+
+      - name: Commit & push (triggers Pages rebuild)
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add assets/today.json
+          git diff --staged --quiet || git commit -m "chore: daily refresh $(date -u +%Y-%m-%d) [skip ci]"
+          git push
