@@ -3,7 +3,11 @@
 
   var KEY_START = 'getfit_start_date';
   var KEY_SKIPS = 'getfit_skips';
-  var TOTAL_DAYS = 5; // Mon-Fri split
+
+  // Day 1-5 = Mon-Fri. Index matches getDay() (1=Mon … 5=Fri).
+  var DAY_NAMES = ['', 'Push', 'Pull', 'Legs', 'Upper', 'Lower'];
+  var DAY_SUBS  = ['', 'Chest & Shoulders', 'Back & Biceps', 'Quads & Hamstrings', 'Shoulders & Arms', 'Deadlift & Glutes'];
+  var WEEKDAYS  = ['', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
 
   function wKey(d, e, s) { return 'getfit_day' + d + '_' + e + '_set' + s + '_weight'; }
   function cKey(d, e, s) { return 'getfit_day' + d + '_' + e + '_set' + s + '_checked'; }
@@ -23,12 +27,16 @@
 
   function saveSkips(arr) { localStorage.setItem(KEY_SKIPS, JSON.stringify(arr)); }
 
+  // Returns 1-5 for Mon-Fri, null for Sat/Sun.
+  // If today is already skipped, returns the NEXT workday number so the
+  // index highlights tomorrow's workout instead.
   function todayWorkoutDay() {
-    var start = new Date(getStart() + 'T00:00:00');
-    var now   = new Date(todayISO()  + 'T00:00:00');
-    var calDays = Math.floor((now - start) / 86400000);
-    var effective = Math.max(0, calDays - getSkips().length);
-    return (effective % TOTAL_DAYS) + 1;
+    var dow = new Date().getDay(); // 0=Sun 1=Mon … 5=Fri 6=Sat
+    if (dow === 0 || dow === 6) return null; // weekend rest
+    if (getSkips().indexOf(todayISO()) !== -1) {
+      return dow >= 5 ? 1 : dow + 1; // skipped — show next workday
+    }
+    return dow; // Mon=1=Push … Fri=5=Lower
   }
 
   function skipDate(iso) {
@@ -37,11 +45,12 @@
   }
 
   function resetSchedule() {
-    localStorage.setItem(KEY_START, todayISO());
     saveSkips([]);
+    localStorage.removeItem(KEY_START);
   }
 
-  // Render set log rows inside every .set-log element
+  // ── Set log rendering ─────────────────────────────────────────────────────
+
   function renderSetLogs() {
     var logs = document.querySelectorAll('.set-log');
     for (var i = 0; i < logs.length; i++) {
@@ -60,10 +69,10 @@
       rows.className = 'set-rows';
 
       for (var s = 1; s <= sets; s++) {
-        var wk = wKey(day, ex, s);
-        var ck = cKey(day, ex, s);
-        var savedW  = localStorage.getItem(wk) || '';
-        var isDone  = localStorage.getItem(ck) === 'true';
+        var wk     = wKey(day, ex, s);
+        var ck     = cKey(day, ex, s);
+        var savedW = localStorage.getItem(wk) || '';
+        var isDone = localStorage.getItem(ck) === 'true';
 
         var row = document.createElement('div');
         row.className = 'set-row' + (isDone ? ' done' : '');
@@ -115,14 +124,33 @@
     card.classList.toggle('completed', all);
   }
 
+  // ── Skip button (day pages) ───────────────────────────────────────────────
+
   function bindSkipButton() {
     var btn    = document.getElementById('btn-skip');
     var notice = document.getElementById('skip-notice');
     if (!btn) return;
+
+    var dow = new Date().getDay();
+    var alreadySkipped = getSkips().indexOf(todayISO()) !== -1;
+
+    if (alreadySkipped) {
+      btn.disabled = true;
+      btn.textContent = '✓ Already skipped today';
+    }
+
     btn.addEventListener('click', function () {
       skipDate(todayISO());
-      btn.disabled = true; btn.textContent = '✓ Skipped';
-      if (notice) notice.classList.add('show');
+      btn.disabled = true;
+      btn.textContent = '✓ Skipped';
+      if (notice) {
+        var skippedDay  = DAY_NAMES[dow]  || 'today\'s workout';
+        var nextDow     = dow >= 5 ? 1 : dow + 1;
+        var nextName    = DAY_NAMES[nextDow]  || '';
+        var nextWeekday = WEEKDAYS[nextDow] || 'tomorrow';
+        notice.textContent = skippedDay + ' skipped — next up: ' + nextName + ' (' + nextWeekday + ')';
+        notice.classList.add('show');
+      }
     });
   }
 
@@ -137,21 +165,14 @@
   }
 
   function initIndex() {
-    var day  = todayWorkoutDay();
+    var day   = todayWorkoutDay();
     var cards = document.querySelectorAll('.day-card[data-day]');
     for (var i = 0; i < cards.length; i++) {
       var card = cards[i];
-      if (parseInt(card.dataset.day) === day) {
+      if (day !== null && parseInt(card.dataset.day) === day) {
         card.classList.add('today');
-        var lbl = document.createElement('span');
-        lbl.className = 'today-lbl'; lbl.textContent = "Today's Workout";
-        card.prepend(lbl);
       }
     }
-    var fill = document.getElementById('progress-fill');
-    var lbl2 = document.getElementById('progress-lbl');
-    if (fill) fill.style.width = ((day / TOTAL_DAYS) * 100) + '%';
-    if (lbl2) lbl2.textContent = 'Week progress: Day ' + day + ' of ' + TOTAL_DAYS;
   }
 
   document.addEventListener('DOMContentLoaded', function () {
@@ -161,11 +182,12 @@
     initIndex();
   });
 
-  // Public API — use from browser console or Claude can inject via script tag
   window.GetFit = {
-    skipDate: skipDate,
-    skipToday: function () { skipDate(todayISO()); },
-    resetSchedule: resetSchedule,
-    todayDay: todayWorkoutDay
+    skipDate      : skipDate,
+    skipToday     : function () { skipDate(todayISO()); },
+    resetSchedule : resetSchedule,
+    todayDay      : todayWorkoutDay,
+    dayName       : function (n) { return DAY_NAMES[n] || ''; },
+    daySub        : function (n) { return DAY_SUBS[n]  || ''; }
   };
 }());
