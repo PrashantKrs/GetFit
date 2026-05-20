@@ -5,8 +5,8 @@
   var KEY_SKIPS = 'getfit_skips';
 
   // Day 1-5 = Mon-Fri. Index matches getDay() (1=Mon … 5=Fri).
-  var DAY_NAMES = ['', 'Push', 'Pull', 'Legs', 'Upper', 'Lower'];
-  var DAY_SUBS  = ['', 'Chest & Shoulders', 'Back & Biceps', 'Quads & Hamstrings', 'Shoulders & Arms', 'Deadlift & Glutes'];
+  var DAY_NAMES = ['', 'Full Body A', 'Full Body B', 'Full Body C', 'Full Body D', 'Full Body E'];
+  var DAY_SUBS  = ['', 'Squat · Bench · Lat Width', 'RDL · Incline · Back Row', 'Deadlift · OHP · Cable Row', 'Split Squat · Hip Thrust · Chins', 'Hack Squat · Arnold · Core'];
   var WEEKDAYS  = ['', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
 
   function wKey(d, e, s) { return 'getfit_day' + d + '_' + e + '_set' + s + '_weight'; }
@@ -27,16 +27,13 @@
 
   function saveSkips(arr) { localStorage.setItem(KEY_SKIPS, JSON.stringify(arr)); }
 
-  // Returns 1-5 for Mon-Fri, null for Sat/Sun.
-  // If today is already skipped, returns the NEXT workday number so the
-  // index highlights tomorrow's workout instead.
   function todayWorkoutDay() {
-    var dow = new Date().getDay(); // 0=Sun 1=Mon … 5=Fri 6=Sat
-    if (dow === 0 || dow === 6) return null; // weekend rest
+    var dow = new Date().getDay();
+    if (dow === 0 || dow === 6) return null;
     if (getSkips().indexOf(todayISO()) !== -1) {
-      return dow >= 5 ? 1 : dow + 1; // skipped — show next workday
+      return dow >= 5 ? 1 : dow + 1;
     }
-    return dow; // Mon=1=Push … Fri=5=Lower
+    return dow;
   }
 
   function skipDate(iso) {
@@ -48,8 +45,6 @@
     saveSkips([]);
     localStorage.removeItem(KEY_START);
   }
-
-  // ── Set log rendering ─────────────────────────────────────────────────────
 
   function renderSetLogs() {
     var logs = document.querySelectorAll('.set-log');
@@ -124,8 +119,6 @@
     card.classList.toggle('completed', all);
   }
 
-  // ── Skip button (day pages) ───────────────────────────────────────────────
-
   function bindSkipButton() {
     var btn    = document.getElementById('btn-skip');
     var notice = document.getElementById('skip-notice');
@@ -144,7 +137,7 @@
       btn.disabled = true;
       btn.textContent = '✓ Skipped';
       if (notice) {
-        var skippedDay  = DAY_NAMES[dow]  || 'today\'s workout';
+        var skippedDay  = DAY_NAMES[dow]  || "today's workout";
         var nextDow     = dow >= 5 ? 1 : dow + 1;
         var nextName    = DAY_NAMES[nextDow]  || '';
         var nextWeekday = WEEKDAYS[nextDow] || 'tomorrow';
