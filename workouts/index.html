@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GetFit — Weekly Schedule</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    .hero {
+      text-align: center;
+      padding: 2.5rem 1rem 1.5rem;
+    }
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      margin: 0 0 .25rem;
+    }
+    .hero p {
+      color: var(--text-muted);
+      margin: 0;
+    }
+    .progress-section {
+      max-width: 680px;
+      margin: 1.5rem auto;
+      padding: 0 1rem;
+    }
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: .5rem;
+      font-size: .875rem;
+      color: var(--text-muted);
+    }
+    .progress-bar {
+      background: var(--surface-2);
+      border-radius: 999px;
+      height: 10px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      background: var(--accent);
+      height: 100%;
+      border-radius: 999px;
+      transition: width .4s ease;
+    }
+    .week-label {
+      font-size: .75rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--text-muted);
+      font-weight: 600;
+      max-width: 680px;
+      margin: 1.5rem auto .5rem;
+      padding: 0 1rem;
+    }
+    .week-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: .75rem;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    @media (max-width: 520px) {
+      .week-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    .day-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem;
+      text-decoration: none;
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      gap: .25rem;
+      transition: border-color .2s, transform .15s;
+    }
+    .day-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+    .day-card.today {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(34,197,94,.2);
+    }
+    .day-card.today .card-day-num {
+      color: var(--accent);
+    }
+    .day-card.rest-card {
+      opacity: .55;
+      cursor: default;
+      pointer-events: none;
+    }
+    .card-day-num {
+      font-size: .75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--text-muted);
+    }
+    .card-day-name {
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    .card-split {
+      font-size: .8rem;
+      color: var(--text-muted);
+    }
+    .today-badge {
+      display: inline-block;
+      font-size: .65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      background: var(--accent);
+      color: #000;
+      border-radius: 4px;
+      padding: .1rem .35rem;
+      margin-top: .25rem;
+      align-self: flex-start;
+    }
+    .weekend-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .75rem;
+      max-width: 680px;
+      margin: .75rem auto 0;
+      padding: 0 1rem;
+    }
+    .links-row {
+      display: flex;
+      gap: .75rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      max-width: 680px;
+      margin: 2rem auto 0;
+      padding: 0 1rem;
+    }
+    .links-row a {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: .6rem 1.1rem;
+      color: var(--text);
+      text-decoration: none;
+      font-size: .9rem;
+      font-weight: 600;
+      transition: border-color .2s;
+    }
+    .links-row a:hover {
+      border-color: var(--accent);
+    }
+    .reset-row {
+      text-align: center;
+      max-width: 680px;
+      margin: 2rem auto 3rem;
+      padding: 0 1rem;
+    }
+    .reset-row p {
+      font-size: .8rem;
+      color: var(--text-muted);
+      margin: .4rem 0 0;
+    }
+    #plan-start-info {
+      font-size: .85rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin: .5rem 0 0;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="site-nav" style="justify-content:center">
+  <a class="nav-home" href="index.html" style="font-weight:800;font-size:1.1rem">GetFit</a>
+</nav>
+
+<div class="page">
+  <div class="hero">
+    <h1>Your Muscle-Gain Plan</h1>
+    <p>134 lb → 150+ lb &nbsp;·&nbsp; 5 days/week &nbsp;·&nbsp; 45 min sessions</p>
+  </div>
+
+  <div class="progress-section">
+    <div class="progress-header">
+      <span id="progress-lbl">Week 1 of 26</span>
+      <span style="color:var(--accent);font-weight:700">0% complete</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+    <p id="plan-start-info"></p>
+  </div>
+
+  <p class="week-label">This Week — Weekday Workouts</p>
+
+  <div class="week-grid">
+    <a class="day-card" data-day="1" href="day1-push.html">
+      <span class="card-day-num">Day 1 · Mon</span>
+      <span class="card-day-name">Push</span>
+      <span class="card-split">Chest &amp; Shoulders</span>
+    </a>
+    <a class="day-card" data-day="2" href="day2-pull.html">
+      <span class="card-day-num">Day 2 · Tue</span>
+      <span class="card-day-name">Pull</span>
+      <span class="card-split">Back &amp; Biceps</span>
+    </a>
+    <a class="day-card" data-day="3" href="day3-legs.html">
+      <span class="card-day-num">Day 3 · Wed</span>
+      <span class="card-day-name">Legs</span>
+      <span class="card-split">Quads &amp; Hamstrings</span>
+    </a>
+    <a class="day-card" data-day="4" href="day4-upper.html">
+      <span class="card-day-num">Day 4 · Thu</span>
+      <span class="card-day-name">Upper</span>
+      <span class="card-split">Shoulders &amp; Arms</span>
+    </a>
+    <a class="day-card" data-day="5" href="day5-lower.html">
+      <span class="card-day-num">Day 5 · Fri</span>
+      <span class="card-day-name">Lower</span>
+      <span class="card-split">Deadlift &amp; Glutes</span>
+    </a>
+  </div>
+
+  <p class="week-label">Weekend — Rest &amp; Recovery</p>
+  <div class="weekend-grid">
+    <div class="day-card rest-card">
+      <span class="card-day-num">Sat</span>
+      <span class="card-day-name">Active Rest</span>
+      <span class="card-split">Walk, stretch, foam roll</span>
+    </div>
+    <div class="day-card rest-card">
+      <span class="card-day-num">Sun</span>
+      <span class="card-day-name">Full Rest</span>
+      <span class="card-split">Sleep in. Eat your macros.</span>
+    </div>
+  </div>
+
+  <div class="links-row">
+    <a href="../nutrition/calorie-targets.html">Calorie Targets</a>
+    <a href="../nutrition/meal-templates.html">Meal Templates</a>
+  </div>
+
+  <div class="reset-row">
+    <button class="btn btn-ghost" id="btn-reset">Reset Plan Start Date</button>
+    <p>Clears your start date and skip history — use when restarting the plan from today.</p>
+  </div>
+</div>
+
+<script src="../assets/tracker.js"></script>
+<script>
+  (function () {
+    var startKey = 'getfit_start_date';
+    var skipKey  = 'getfit_skips';
+
+    function todayISO() {
+      return new Date().toISOString().slice(0, 10);
+    }
+
+    function getStart() {
+      var s = localStorage.getItem(startKey);
+      if (!s) { s = todayISO(); localStorage.setItem(startKey, s); }
+      return s;
+    }
+
+    function getSkips() {
+      try { return JSON.parse(localStorage.getItem(skipKey) || '[]'); } catch(e) { return []; }
+    }
+
+    function todayWorkoutDay() {
+      var start = new Date(getStart() + 'T00:00:00');
+      var now   = new Date(todayISO() + 'T00:00:00');
+      var calDays = Math.floor((now - start) / 86400000);
+      var effective = Math.max(0, calDays - getSkips().length);
+      return (effective % 5) + 1;
+    }
+
+    function weeksElapsed() {
+      var start = new Date(getStart() + 'T00:00:00');
+      var now   = new Date(todayISO() + 'T00:00:00');
+      return Math.floor((now - start) / (7 * 86400000)) + 1;
+    }
+
+    function initIndex() {
+      var todayDay = todayWorkoutDay();
+      var cards    = document.querySelectorAll('.day-card[data-day]');
+      cards.forEach(function (card) {
+        if (parseInt(card.getAttribute('data-day'), 10) === todayDay) {
+          card.classList.add('today');
+          var badge = document.createElement('span');
+          badge.className = 'today-badge';
+          badge.textContent = 'Today';
+          card.appendChild(badge);
+        }
+      });
+
+      // Progress bar — based on weeks (26-week plan)
+      var week  = Math.min(weeksElapsed(), 26);
+      var pct   = Math.round((week / 26) * 100);
+      var fill  = document.getElementById('progress-fill');
+      var lbl   = document.getElementById('progress-lbl');
+      var pctEl = document.querySelector('.progress-header span:last-child');
+      if (fill) fill.style.width = pct + '%';
+      if (lbl)  lbl.textContent  = 'Week ' + week + ' of 26';
+      if (pctEl) pctEl.textContent = pct + '% complete';
+
+      // Start date info
+      var info = document.getElementById('plan-start-info');
+      if (info) {
+        var start = getStart();
+        var skips = getSkips();
+        var parts = ['Plan started ' + start];
+        if (skips.length > 0) parts.push(skips.length + ' day(s) skipped');
+        info.textContent = parts.join(' · ');
+      }
+    }
+
+    document.getElementById('btn-reset').addEventListener('click', function () {
+      if (confirm('Reset plan start date to today? This clears all skips too.')) {
+        localStorage.removeItem(startKey);
+        localStorage.removeItem(skipKey);
+        location.reload();
+      }
+    });
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initIndex);
+    } else {
+      initIndex();
+    }
+  })();
+</script>
+</body>
+</html>

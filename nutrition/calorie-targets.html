@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calorie Targets | GetFit</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <a class="nav-prev" href="../workouts/index.html">← Schedule</a>
+  <a class="nav-home" href="../workouts/index.html">GetFit</a>
+  <a class="nav-next" href="meal-templates.html">Meal Templates →</a>
+</nav>
+
+<div class="page">
+
+  <header class="day-header">
+    <div class="day-badge">Nutrition Reference</div>
+    <h1>Calorie &amp; Macro <em>Targets</em></h1>
+    <p class="text-muted text-sm" style="margin-top:10px">Source of truth for all nutrition values in this program. Update this page when your weight changes significantly.</p>
+  </header>
+
+  <div class="card-block">
+    <h2>Your Profile</h2>
+    <table class="info-table">
+      <tr><th>Metric</th><th>Value</th><th>Notes</th></tr>
+      <tr><td>Start weight</td><td>134 lb (60.8 kg)</td><td>Baseline</td></tr>
+      <tr><td>Target weight</td><td>150+ lb</td><td>6-month goal</td></tr>
+      <tr><td>Height</td><td>~5‘8” (172.7 cm)</td><td>Used for BMR calc</td></tr>
+      <tr><td>Age</td><td>~27</td><td>Used for BMR calc</td></tr>
+      <tr><td>Training frequency</td><td>5×/week (Mon–Fri)</td><td>Activity multiplier 1.725</td></tr>
+    </table>
+  </div>
+
+  <div class="card-block">
+    <h2>TDEE Calculation (Mifflin-St Jéor)</h2>
+    <table class="info-table">
+      <tr><th>Step</th><th>Formula</th><th>Result</th></tr>
+      <tr><td>BMR</td><td>10 × 60.8 + 6.25 × 172.7 − 5 × 27 + 5</td><td>1,557 kcal</td></tr>
+      <tr><td>Activity multiplier</td><td>× 1.725 (very active, 6x/week)</td><td>—</td></tr>
+      <tr class="hl"><td>TDEE</td><td>1,557 × 1.725</td><td>2,686 kcal</td></tr>
+      <tr><td>Lean bulk surplus (workout)</td><td>TDEE + 300</td><td>2,986 kcal</td></tr>
+      <tr><td>Rest day (Sat–Sun)</td><td>TDEE + 100</td><td>2,786 kcal</td></tr>
+    </table>
+  </div>
+
+  <div class="card-block">
+    <h2>Daily Macro Targets</h2>
+    <table class="info-table">
+      <tr><th>Day Type</th><th>Calories</th><th>Protein</th><th>Carbs</th><th>Fat</th></tr>
+      <tr class="hl"><td>Workout days (Mon–Fri)</td><td>2,986 kcal</td><td>154g</td><td>326g</td><td>119g</td></tr>
+      <tr><td>Rest days (Sat–Sun)</td><td>2,786 kcal</td><td>154g</td><td>271g</td><td>121g</td></tr>
+    </table>
+    <p class="nutrition-note">Protein (154g = 1.15g/lb) stays constant on all days. Carbs drop on rest days because training stimulus is absent; fat stays roughly the same.</p>
+  </div>
+
+  <div class="card-block">
+    <h2>6-Month Progress Milestones</h2>
+    <table class="info-table">
+      <tr><th>Timeframe</th><th>Target Weight</th><th>Gain</th><th>Action if Behind</th></tr>
+      <tr><td>Week 4</td><td>~136 lb</td><td>+2 lb</td><td>Add 200 kcal/day</td></tr>
+      <tr><td>Week 8</td><td>~138–139 lb</td><td>+4–5 lb</td><td>Add 200 kcal/day</td></tr>
+      <tr><td>Week 12</td><td>~141–142 lb</td><td>+7–8 lb</td><td>Add 200 kcal/day</td></tr>
+      <tr><td>Week 16</td><td>~144–146 lb</td><td>+10–12 lb</td><td>Recalculate TDEE at new weight</td></tr>
+      <tr><td>Week 20</td><td>~147–149 lb</td><td>+13–15 lb</td><td>Recalculate TDEE</td></tr>
+      <tr class="hl"><td>Week 24</td><td>150+ lb</td><td>+16+ lb</td><td>Goal achieved — reassess</td></tr>
+    </table>
+    <p class="nutrition-note">Gaining faster than 1.5 lb/week? Reduce by 150 kcal/day (likely adding too much fat). Gaining slower than 0.5 lb/week after 2 weeks? Add 200 kcal/day. Weigh yourself Monday morning before eating, same conditions each time.</p>
+  </div>
+
+  <div class="card-block">
+    <h2>When to Recalculate</h2>
+    <p class="text-sm">At 145 lb (new weight_kg = 65.8):</p>
+    <table class="info-table">
+      <tr><th>Step</th><th>Calculation</th><th>Value</th></tr>
+      <tr><td>New BMR</td><td>10 × 65.8 + 6.25 × 172.7 − 5 × 27 + 5</td><td>~1,607 kcal</td></tr>
+      <tr><td>New TDEE</td><td>1,607 × 1.725</td><td>~2,772 kcal</td></tr>
+      <tr class="hl"><td>New workout target</td><td>2,772 + 300</td><td>~3,072 kcal</td></tr>
+    </table>
+  </div>
+
+  <p class="text-sm text-muted mt-4"><a href="meal-templates.html">View meal plan templates →</a></p>
+
+</div>
+
+<script src="../assets/tracker.js"></script>
+</body>
+</html>
