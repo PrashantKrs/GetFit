@@ -132,8 +132,7 @@
     if (!btn) return;
 
     var dow = new Date().getDay();
-    var skips = getSkips();
-    var alreadySkipped = skips.indexOf(todayISO()) !== -1;
+    var alreadySkipped = getSkips().indexOf(todayISO()) !== -1;
 
     if (alreadySkipped) {
       btn.disabled = true;
@@ -165,9 +164,6 @@
     });
   }
 
-  // ── Index page ────────────────────────────────────────────────────────────
-  // Minimal init — full index logic lives in workouts/index.html inline script.
-
   function initIndex() {
     var day   = todayWorkoutDay();
     var cards = document.querySelectorAll('.day-card[data-day]');
@@ -186,7 +182,6 @@
     initIndex();
   });
 
-  // Public API
   window.GetFit = {
     skipDate      : skipDate,
     skipToday     : function () { skipDate(todayISO()); },
